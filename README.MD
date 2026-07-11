@@ -1,185 +1,607 @@
-# 📄 AI Resume Screening and Interview Scheduling System using n8n
+# 📄 AI Resume Screening & Interview Scheduling System — n8n Automation
 
-An AI-powered recruitment automation workflow built with **n8n**, **Google Gemini AI**, **Google Workspace**, and **Telegram**. This workflow automatically collects job applications, extracts resume content, evaluates candidates using AI, ranks applicants, schedules interviews for qualified candidates, logs recruitment data, and notifies both recruiters and applicants.
+![n8n](https://img.shields.io/badge/n8n-Automation-orange)
+![Google Gemini](https://img.shields.io/badge/AI-Google%20Gemini-blue)
+![Google Workspace](https://img.shields.io/badge/Platform-Google%20Workspace-green)
+![JavaScript](https://img.shields.io/badge/Code-JavaScript-yellow)
+![License](https://img.shields.io/badge/license-MIT-green)
 
-Designed as part of my **30-Day n8n Automation Portfolio**, this project demonstrates end-to-end HR automation, AI-powered candidate screening, workflow orchestration, and business process automation.
+An AI-powered recruitment automation workflow built using **n8n**, **Google Gemini AI**, **Google Workspace APIs**, and **Telegram Bot API**.
 
----
+This system automatically collects job applications, processes resumes, evaluates candidates using artificial intelligence, ranks applicants, schedules interviews for qualified candidates, sends automated emails, and provides recruitment notifications.
 
-# 📌 Features
+**Stack:**  
+n8n · Google Forms · Google Sheets · Google Drive · Google Gemini AI · Google Calendar · Gmail · Telegram Bot · JavaScript · AI Automation
 
-* 📝 Collects job applications through Google Forms
-* 📂 Monitors new application responses in Google Sheets
-* 📄 Downloads and extracts resume content from PDF files
-* 🤖 Uses Google Gemini AI to evaluate candidates
-* ⭐ Assigns AI-generated candidate scores
-* 🏆 Ranks applicants based on qualifications
-* 🔀 Automatically categorizes candidates (Shortlist, Review, Reject)
-* 📅 Schedules interviews using Google Calendar
-* 📧 Sends interview invitations and rejection emails via Gmail
-* 📲 Notifies recruiters through Telegram
-* 📊 Logs recruitment data into Google Sheets
-* 📈 Generates weekly recruitment analytics
 
 ---
 
-# 🛠 Technologies Used
+# 🎯 Project Overview
 
-* n8n
-* Google Forms
-* Google Sheets API
-* Google Drive API
-* Google Calendar API
-* Gmail API
-* Google Gemini AI
-* Telegram Bot API
-* JavaScript
+
+## Problem
+
+Traditional recruitment processes require significant manual effort from HR teams.
+
+Common challenges include:
+
+- Reviewing hundreds of resumes manually
+- Slow candidate evaluation
+- Difficulty ranking applicants consistently
+- Manual interview scheduling
+- Repetitive email communication
+- Limited recruitment tracking and analytics
+
+
+Recruiters often spend valuable time on administrative tasks instead of focusing on candidate engagement.
+
 
 ---
 
-# 📂 Workflow Architecture
+## Solution
+
+This project creates an automated AI recruitment pipeline by:
+
+
+1. Collecting applications through Google Forms
+2. Detecting new applicants automatically
+3. Downloading and processing resumes
+4. Extracting resume information
+5. Evaluating candidates using Google Gemini AI
+6. Assigning candidate scores
+7. Categorizing applicants automatically
+8. Scheduling interviews for qualified candidates
+9. Sending email notifications
+10. Logging recruitment data
+11. Generating recruitment analytics
+
+
+The workflow acts as an AI recruitment assistant that reduces manual screening effort and improves hiring efficiency.
+
+
+---
+
+# ✨ Features
+
+
+## Application Management
+
+✅ Google Forms application collection  
+✅ Automated applicant detection  
+✅ Resume file processing  
+✅ Candidate information extraction  
+
+
+## Artificial Intelligence
+
+✅ Google Gemini AI resume analysis  
+✅ Candidate scoring system  
+✅ AI-generated evaluation summary  
+✅ Automated candidate ranking  
+✅ Qualification classification  
+
+
+## Recruitment Automation
+
+✅ Interview scheduling  
+✅ Google Calendar integration  
+✅ Automated Gmail invitations  
+✅ Candidate status tracking  
+
+
+## Data Management
+
+✅ Google Sheets recruitment database  
+✅ Candidate history tracking  
+✅ Recruitment analytics  
+✅ Structured applicant records  
+
+
+## Notifications
+
+✅ Telegram recruiter alerts  
+✅ Candidate email updates  
+✅ Automated workflow monitoring  
+
+
+---
+
+# 🗺️ System Architecture
+
+
+```mermaid
+flowchart TD
+
+A["📝 Google Forms Application"]
+
+--> B["📊 Google Sheets Trigger"]
+
+--> C["📂 Download Resume"]
+
+--> D["📄 Extract PDF Text"]
+
+--> E["🤖 Google Gemini AI"]
+
+--> F["📝 JavaScript JSON Parser"]
+
+--> G{"⭐ Candidate Score"}
+
+G -->|80-100| H["✅ Qualified"]
+
+G -->|50-79| I["🔎 Needs Review"]
+
+G -->|Below 50| J["❌ Reject"]
+
+H --> K["📅 Google Calendar"]
+
+K --> L["📧 Gmail Invitation"]
+
+L --> M["📱 Telegram Notification"]
+
+M --> N["📊 Google Sheets"]
+
+I --> N
+
+J --> N
+
+````
+
+---
+
+# 🏗️ Workflow Implementation
+
+# Workflow 1: AI Resume Screening Pipeline
+
+## Node 1 — Google Forms
+
+### Purpose
+
+Collect job applications from candidates.
+
+Collected Information:
+
+| Field            | Description            |
+| ---------------- | ---------------------- |
+| Full Name        | Applicant name         |
+| Email Address    | Candidate contact      |
+| Position Applied | Job role               |
+| Resume           | Uploaded PDF           |
+| Cover Letter     | Additional information |
+
+Example:
 
 ```text
-Google Forms
-      │
-      ▼
-Google Sheets Trigger
-      │
-      ▼
-Download Resume
-      │
-      ▼
-Extract PDF Text
-      │
-      ▼
-Google Gemini AI
-      │
-      ▼
-Code (Parse JSON)
-      │
-      ▼
-IF (Candidate Score)
-      │
- ┌────┴─────────────┐
- ▼                  ▼
-Qualified      Review / Reject
- │                  │
- ▼                  ▼
-Google Calendar     Gmail
- │                  │
- ▼                  ▼
-Gmail         Google Sheets
- │
- ▼
-Telegram
- │
- ▼
-Google Sheets
+Applicant:
+
+John Smith
+
+Position:
+
+Junior IT Support
+
+Resume:
+
+john_resume.pdf
 ```
 
 ---
 
-# ⚙️ Workflow Process
+# Node 2 — Google Sheets Trigger
 
-## 1. Application Intake
+### Purpose
 
-Applicants submit their information using Google Forms.
+Monitor new application submissions.
 
-Collected information:
+The trigger detects:
 
-* Full Name
-* Email Address
-* Position Applied
-* Resume (PDF)
-* Cover Letter (Optional)
+* New applicants
+* Updated application records
+* Resume links
 
----
+Captured Data:
 
-## 2. Resume Processing
-
-The workflow automatically:
-
-* Detects a new application
-* Downloads the uploaded resume
-* Extracts text from the PDF
-* Prepares the resume for AI analysis
+| Field          | Description         |
+| -------------- | ------------------- |
+| Applicant Name | Candidate identity  |
+| Email          | Contact information |
+| Resume URL     | Resume location     |
+| Position       | Applied role        |
 
 ---
 
-## 3. AI Candidate Evaluation
+# Node 3 — Resume Processing
 
-Google Gemini analyzes each resume based on:
+### Purpose
+
+Download and prepare resume files for AI analysis.
+
+Processing Flow:
+
+```text
+Resume PDF
+
+↓
+
+Download File
+
+↓
+
+Extract Text
+
+↓
+
+Send to Gemini AI
+```
+
+Extracted Information:
 
 * Education
-* Technical Skills
-* Work Experience
+* Technical skills
+* Experience
 * Certifications
-* Overall Candidate Quality
+* Achievements
 
-Example AI Output
+---
+
+# Node 4 — Google Gemini AI
+
+### Purpose
+
+Analyze candidate resumes and generate recruitment insights.
+
+The AI evaluates:
+
+* Educational background
+* Technical skills
+* Work experience
+* Certifications
+* Job compatibility
+* Overall candidate quality
+
+Example Output:
 
 ```json
 {
-  "score": 88,
-  "rank": "Qualified",
-  "recommendation": "Interview",
-  "summary": "Strong IT support candidate with relevant technical experience."
+"score":88,
+
+"rank":
+"Qualified",
+
+"recommendation":
+"Interview",
+
+"summary":
+"Strong IT support candidate with relevant technical experience."
 }
 ```
 
 ---
 
-## 4. Decision Logic
+# Node 5 — Code Node (JSON Parser)
 
-Candidates are automatically categorized.
+### Purpose
+
+Convert AI output into structured recruitment data.
+
+Processing:
+
+```text
+Gemini AI Response
+
+↓
+
+JavaScript Parsing
+
+↓
+
+Structured Candidate Data
+```
+
+Extracted Fields:
+
+| Field          | Description         |
+| -------------- | ------------------- |
+| Score          | AI evaluation score |
+| Rank           | Candidate category  |
+| Recommendation | Hiring decision     |
+| Summary        | AI evaluation       |
+
+---
+
+# Node 6 — IF Node
+
+### Purpose
+
+Automatically categorize candidates based on AI score.
+
+Decision Logic:
+
+```javascript
+if(score >= 80)
+
+Qualified
+
+
+if(score >= 50)
+
+Needs Review
+
+
+else
+
+Reject
+```
+
+Candidate Categories:
 
 | Score    | Decision     |
 | -------- | ------------ |
-| 80–100   | Qualified    |
-| 50–79    | Needs Review |
+| 80-100   | Qualified    |
+| 50-79    | Needs Review |
 | Below 50 | Reject       |
 
 ---
 
-## 5. Interview Scheduling
+# Node 7 — Google Calendar
 
-Qualified candidates automatically receive:
+### Purpose
 
-* Google Calendar interview
+Schedule interviews automatically for qualified candidates.
+
+Created Information:
+
+| Field           | Description    |
+| --------------- | -------------- |
+| Interview Date  | Scheduled time |
+| Candidate Email | Guest          |
+| Meeting Link    | Google Meet    |
+| Position        | Applied role   |
+
+---
+
+# Node 8 — Gmail
+
+### Purpose
+
+Send automated recruitment emails.
+
+Email Types:
+
+## Qualified Candidates
+
+Includes:
+
+* Interview invitation
+* Schedule details
 * Google Meet link
-* Invitation email
-* Telegram notification to HR
+
+## Rejected Candidates
+
+Includes:
+
+* Application status update
+* Professional response
 
 ---
 
-## 6. Candidate Logging
+# Node 9 — Telegram Notification
 
-Every applicant is stored in Google Sheets.
+### Purpose
 
-Columns include:
+Notify recruiters about recruitment activities.
 
-* Name
-* Email
-* Position
-* Score
-* Recommendation
-* Status
-* Interview Date
-* Processed Date
+Example:
+
+```text
+📌 New Candidate Evaluated
+
+
+Name:
+
+John Smith
+
+
+Position:
+
+Junior IT Support
+
+
+Score:
+
+88/100
+
+
+Status:
+
+Qualified
+
+
+Recommendation:
+
+Schedule Interview
+```
 
 ---
 
-## 7. Weekly Analytics
+# Node 10 — Google Sheets
 
-A scheduled workflow generates recruitment statistics such as:
+### Purpose
 
-* Total Applicants
-* Qualified Candidates
-* Average Candidate Score
-* Rejection Rate
-* AI-generated recruitment summary
+Store all recruitment records.
 
-The report is automatically delivered to Telegram.
+Database Structure:
+
+| Field          | Description    |
+| -------------- | -------------- |
+| Name           | Candidate name |
+| Email          | Contact        |
+| Position       | Applied role   |
+| Score          | AI score       |
+| Recommendation | AI decision    |
+| Status         | Hiring stage   |
+| Interview Date | Schedule       |
+| Processed Date | Timestamp      |
+
+---
+
+# Node 11 — Recruitment Analytics
+
+### Purpose
+
+Generate automated recruitment insights.
+
+Generated Metrics:
+
+* Total applicants
+* Qualified candidates
+* Average score
+* Rejection rate
+* Recruitment summary
+
+Reports are delivered through Telegram.
+
+---
+
+# 🔐 Credentials Required
+
+| Service                | Purpose                |
+| ---------------------- | ---------------------- |
+| Google Forms           | Application collection |
+| Google Sheets OAuth2   | Applicant database     |
+| Google Drive OAuth2    | Resume access          |
+| Google Gemini API      | AI evaluation          |
+| Google Calendar OAuth2 | Interview scheduling   |
+| Gmail OAuth2           | Email communication    |
+| Telegram Bot API       | Notifications          |
+| n8n Instance           | Workflow execution     |
+
+---
+
+# ⚙️ Setup Guide
+
+## 1. Create Application Form
+
+Create Google Form fields:
+
+```text
+Full Name
+
+Email
+
+Position Applied
+
+Resume Upload
+
+Cover Letter
+```
+
+Connect responses to Google Sheets.
+
+---
+
+## 2. Configure Resume Processing
+
+Required:
+
+```text
+Google Drive Access
+
+PDF Extraction Method
+
+Resume Processing Workflow
+```
+
+Test resume extraction.
+
+---
+
+## 3. Configure Google Gemini AI
+
+Create Gemini API credentials.
+
+Required:
+
+```text
+Google AI API Key
+
+Gemini Model Access
+```
+
+Test candidate evaluation.
+
+---
+
+## 4. Configure Google Calendar
+
+Enable:
+
+```text
+Calendar API
+
+Google Meet Creation
+
+Event Scheduling
+```
+
+---
+
+## 5. Configure Gmail
+
+Setup:
+
+```text
+Gmail OAuth2
+
+Email Templates
+
+Candidate Notifications
+```
+
+---
+
+## 6. Configure Telegram Bot
+
+Steps:
+
+1. Create bot using BotFather
+2. Copy bot token
+3. Add Telegram credentials
+4. Configure recruiter chat ID
+
+---
+
+## 7. Import Workflow
+
+Import:
+
+```text
+workflow.json
+```
+
+Configure:
+
+* Google Workspace credentials
+* Gemini API
+* Telegram Bot
+
+Activate workflow.
+
+---
+
+# 🧪 Testing Checklist
+
+| Test Case               | Expected Result           |
+| ----------------------- | ------------------------- |
+| Submit application form | Applicant recorded        |
+| Resume uploaded         | File processed            |
+| PDF extraction runs     | Resume text generated     |
+| Gemini analyzes resume  | Score created             |
+| JSON parser executes    | Structured data generated |
+| IF node runs            | Correct category selected |
+| Calendar creates event  | Interview scheduled       |
+| Gmail sends email       | Candidate notified        |
+| Telegram sends alert    | Recruiter notified        |
+| Sheets updates          | Candidate stored          |
 
 ---
 
@@ -187,20 +609,27 @@ The report is automatically delivered to Telegram.
 
 ```text
 AI-Resume-Screening-and-Interview-Scheduling-System/
+
 │
 ├── README.md
+│
 ├── workflow.json
+│
 ├── screenshots/
+│   │
 │   ├── workflow.png
 │   ├── application-form.png
+│   ├── resume-processing.png
 │   ├── ai-analysis.png
-│   ├── candidate-log.png
+│   ├── candidate-evaluation.png
+│   ├── google-sheets.png
+│   ├── google-calendar.png
 │   ├── interview-email.png
 │   ├── telegram-notification.png
-│   ├── google-calendar.png
 │   └── workflow-execution.png
 │
 ├── sample-data/
+│   │
 │   ├── sample-resume.pdf
 │   └── sample-ai-output.json
 │
@@ -209,58 +638,94 @@ AI-Resume-Screening-and-Interview-Scheduling-System/
 
 ---
 
-# 📷 Screenshots
+# 📸 Screenshots
 
-Include screenshots of:
+Recommended screenshots:
 
-* Complete Workflow
-* Google Form
-* Resume Processing
-* AI Analysis
-* Candidate Evaluation
-* Google Sheets Results
-* Google Calendar Event
-* Gmail Invitation
-* Telegram Notification
-* Workflow Execution
-
----
-
-# 🎯 Skills Demonstrated
-
-* AI Workflow Automation
-* Recruitment Process Automation
-* Google Workspace Integration
-* PDF Document Processing
-* Prompt Engineering
-* AI Candidate Evaluation
-* Conditional Workflow Logic
-* Google Calendar Automation
-* Email Automation
-* Telegram Notifications
-* JavaScript Data Processing
-* Business Process Automation
+* Complete workflow
+* Google Form submission
+* Resume processing
+* Gemini AI analysis
+* Candidate evaluation output
+* Google Sheets records
+* Google Calendar interview
+* Gmail invitation
+* Telegram notification
+* Workflow execution
 
 ---
 
 # 🚀 Future Improvements
 
-* Duplicate applicant detection
-* Resume similarity checking
-* ATS keyword matching
-* AI interview question generation
-* Candidate ranking dashboard
-* HR analytics dashboard
-* Multi-language support
-* Notion or Airtable integration
-* Database-backed candidate storage
-* Recruiter approval workflow
+| Feature                | Implementation                      |
+| ---------------------- | ----------------------------------- |
+| Duplicate Detection    | Identify repeated applicants        |
+| ATS Integration        | Connect recruitment systems         |
+| Keyword Matching       | Compare resume with job description |
+| AI Interview Questions | Generate role-specific questions    |
+| Candidate Dashboard    | Recruitment analytics UI            |
+| Database Storage       | PostgreSQL / Supabase               |
+| Approval Workflow      | Human recruiter review              |
+| Multi-language Support | Global recruitment                  |
+| Notion Integration     | Candidate knowledge base            |
 
 ---
 
-# 📄 License
+# 🎓 Skills Applied
 
-This project is licensed under the MIT License.
+## Automation
+
+* n8n Workflow Automation
+* Recruitment pipeline automation
+* Event-driven workflows
+
+## Artificial Intelligence
+
+* Google Gemini AI
+* Resume analysis
+* Candidate scoring
+* Prompt Engineering
+
+## APIs
+
+* Google Workspace APIs
+* Gmail API
+* Google Calendar API
+* Telegram Bot API
+
+## Programming
+
+* JavaScript
+* JSON parsing
+* Data transformation
+* Conditional logic
+
+## Business Automation
+
+* HR workflow automation
+* Recruitment process optimization
+* AI-powered decision support
+
+---
+
+# 📚 Learning Objectives
+
+This project demonstrates:
+
+* Building AI-powered HR automation systems
+* Integrating Google Workspace with n8n
+* Processing documents automatically
+* Creating AI evaluation pipelines
+* Designing complete business workflow automation
+
+---
+
+# 🙌 Acknowledgements
+
+* n8n
+* Google Gemini AI
+* Google Workspace APIs
+* Telegram Bot API
 
 ---
 
@@ -271,7 +736,17 @@ This project is licensed under the MIT License.
 BS Information Technology Student
 Cebu Technological University (CTU)
 
-**GitHub:** https://github.com/belioautomation
+GitHub:
 
-This project is part of my **30-Day n8n Automation Portfolio**, showcasing practical workflow automation using **n8n**, AI integrations, APIs, and business process automation.
+[https://github.com/belioautomation](https://github.com/belioautomation)
 
+This project is part of my **30-Day n8n Automation Portfolio**, showcasing practical automation solutions using **n8n, AI integrations, APIs, and business workflow automation**.
+
+---
+
+# 📄 License
+
+MIT License
+
+```
+```
