@@ -1,0 +1,72 @@
+{
+    "candidate_name": "John Michael Reyes",
+    "email": "john.reyes.dev@gmail.com",
+    "phone": "+63 912 345 6789",
+    "position_applied": "Junior Web Developer",
+
+    "evaluation": {
+        "technical_skills_score": 90,
+        "education_score": 85,
+        "experience_score": 80,
+        "job_match_score": 92
+    },
+
+    "overall_score": 88,
+
+    "status": "Qualified",
+
+    "recommendation": "Interview",
+
+    "summary": "Candidate has a strong foundation in web development, JavaScript programming, API integration, and automation workflows. The candidate demonstrates relevant technical skills and project experience suitable for a Junior Web Developer role.",
+
+    "strengths": [
+        "Strong JavaScript and frontend development knowledge",
+        "Experience creating automation workflows using n8n",
+        "Knowledge of REST APIs and database systems",
+        "Relevant Information Technology education",
+        "Computer Systems Servicing NC II certification"
+    ],
+
+    "weaknesses": [
+        "Limited professional software development experience",
+        "Requires more experience with advanced backend architecture"
+    ],
+
+    "skills_detected": [
+        "JavaScript",
+        "HTML",
+        "CSS",
+        "React.js",
+        "Node.js",
+        "PostgreSQL",
+        "MySQL",
+        "n8n",
+        "Google Workspace",
+        "API Integration"
+    ],
+
+    "experience_detected": [
+        {
+            "role": "IT Support Intern",
+            "company": "ABC Technology Solutions",
+            "duration": "January 2025 - June 2025"
+        },
+        {
+            "role": "Automation Project Developer",
+            "project": "AI Recruitment Automation System"
+        }
+    ],
+
+    "workflow_decision": {
+        "qualification_route": "Qualified",
+        "create_calendar_event": true,
+        "send_email_invitation": true,
+        "send_telegram_notification": true
+    },
+
+    "interview_details": {
+        "duration": "30 minutes",
+        "platform": "Google Meet",
+        "schedule": "2026-07-15 10:00 AM"
+    }
+}
